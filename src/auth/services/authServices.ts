@@ -6,7 +6,7 @@ import { getUserByEmail } from "../../shared/utils/getUserByEmail";
 import { UserModel } from "../entity/authModels";
 import { IUser, loginUser, registerUser } from '../entity/authTypes';
 
-export const loginUserService = async (userRequest: loginUser): Promise<{ authToken: string }> => {
+export const loginUserService = async (userRequest: loginUser): Promise<string> => {
   try {
     const user = await getUserByEmail(userRequest.email);
     const isValid = validatePassword(userRequest.password, user.password);
@@ -17,7 +17,7 @@ export const loginUserService = async (userRequest: loginUser): Promise<{ authTo
   }
 }
 
-export const registerUserService = async (userRequest: registerUser): Promise<{ authToken: string }> => {
+export const registerUserService = async (userRequest: registerUser): Promise<string> => {
   try {
     userRequest.password = encryptText(userRequest.password);
     const user = await createAny(UserModel)(userRequest);
