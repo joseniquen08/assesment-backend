@@ -22,3 +22,11 @@ export const UserSchema = new mongoose.Schema<IUser>({
     updatedAt: 'updated_at',
   },
 });
+
+UserSchema.methods.toJSON = function() {
+  const { _id, email, username } = this.toObject();
+  return { _id, email, username };
+}
+
+UserSchema.set('toJSON',{ virtuals: true });
+UserSchema.set('toObject', { virtuals: true });
