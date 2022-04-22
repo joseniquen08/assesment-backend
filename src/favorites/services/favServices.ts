@@ -31,3 +31,13 @@ export const getFavoritesListByIdService = async (listId: string): Promise<IList
     throw new Error(`${error.message}`);
   }
 }
+
+export const deleteFavoritesListByIdService = async (listId: string): Promise<IListFavs> => {
+  try {
+    const listFavs: IListFavs | null = await ListFavModel.findByIdAndDelete(listId);
+    if (!listFavs) throw new Error('list not found');
+    return listFavs;
+  } catch (error: any) {
+    throw new Error(`${error.message}`);
+  }
+}
