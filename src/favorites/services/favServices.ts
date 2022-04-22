@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { createAny } from '../../shared/factory/createAny';
 import { ListFavModel } from '../entity/favModels';
-import { createListFavs, IListFavs } from '../entity/favTypes';
+import { createListFavs, IFav, IListFavs } from '../entity/favTypes';
 
 export const createFavoritesListService = async (listFavsRequest: createListFavs, user_id: string | Types.ObjectId): Promise<IListFavs> => {
   try {
@@ -27,6 +27,18 @@ export const getFavoritesListByIdService = async (listId: string): Promise<IList
     const listFavs: IListFavs | null = await ListFavModel.findById(listId);
     if (!listFavs) throw new Error('list not found');
     return listFavs;
+  } catch (error: any) {
+    throw new Error(`${error.message}`);
+  }
+}
+
+export const addItemToFavoritesListByIdService = async (listId: string, itemRequest: IFav): Promise<IListFavs> => {
+  try {
+    let listFavs: IListFavs | null = await ListFavModel.findById(listId);
+    if (!listFavs) throw new Error('list not found');
+    listFavs.favs.push(itemRequest);
+    const listFavsUpdated = await ListFavModel.findByIdAndUpdate(listId, listFavs, { new: true });
+    return listFavsUpdated as IListFavs;
   } catch (error: any) {
     throw new Error(`${error.message}`);
   }

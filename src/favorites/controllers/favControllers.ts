@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ApplicationError } from "../../shared/errors/ApplicationError";
 import { decodeToken } from '../../shared/utils/decodeToken';
 import { createListFavs } from '../entity/favTypes';
-import { createFavoritesListService, deleteFavoritesListByIdService, getFavoritesListByIdService, getFavoritesListService } from '../services/favServices';
+import { addItemToFavoritesListByIdService, createFavoritesListService, deleteFavoritesListByIdService, getFavoritesListByIdService, getFavoritesListService } from '../services/favServices';
 
 export const createFavoritesListController = async (req: Request<{}, {}, createListFavs>, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -31,6 +31,15 @@ export const getFavoritesListController = async (req: Request, res: Response, ne
 export const getFavoritesListByIdController = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const listFavs = await getFavoritesListByIdService(req.params.id);
+    res.status(200).json({ listFavs });
+  } catch (error: any) {
+    next(new ApplicationError(401, `${error.message}`));
+  }
+}
+
+export const addItemToFavoritesListByIdController = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const listFavs = await addItemToFavoritesListByIdService(req.params.id, req.body);
     res.status(200).json({ listFavs });
   } catch (error: any) {
     next(new ApplicationError(401, `${error.message}`));
