@@ -21,3 +21,13 @@ export const getFavoritesListService = async (userId: string): Promise<IListFavs
     throw new Error(`${error.message}`);
   }
 }
+
+export const getFavoritesListByIdService = async (listId: string): Promise<IListFavs> => {
+  try {
+    const listFavs: IListFavs | null = await ListFavModel.findById(listId);
+    if (!listFavs) throw new Error('list not found');
+    return listFavs;
+  } catch (error: any) {
+    throw new Error(`${error.message}`);
+  }
+}
