@@ -1,10 +1,11 @@
+import { Types } from 'mongoose';
 import { createAny } from '../../shared/factory/createAny';
 import { ListFavModel } from '../entity/favModels';
 import { createListFavs, IListFavs } from '../entity/favTypes';
 
-export const createListOfFavoritesService = async (listFavsRequest: createListFavs): Promise<IListFavs> => {
+export const createFavoritesListService = async (listFavsRequest: createListFavs, user_id: string | Types.ObjectId): Promise<IListFavs> => {
   try {
-    const listCreated = await createAny(ListFavModel)(listFavsRequest);
+    const listCreated = await createAny(ListFavModel)({...listFavsRequest, user_id});
     if (!listCreated) throw new Error('list not created');
     return listCreated as IListFavs;
   } catch (error: any) {
@@ -12,7 +13,7 @@ export const createListOfFavoritesService = async (listFavsRequest: createListFa
   }
 }
 
-export const getListOfFavoritesService = async (userId: string): Promise<IListFavs[]> => {
+export const getFavoritesListService = async (userId: string): Promise<IListFavs[]> => {
   try {
     const list: IListFavs[] = await ListFavModel.find({ user_id: userId });
     return list;

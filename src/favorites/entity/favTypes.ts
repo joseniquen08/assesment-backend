@@ -15,4 +15,4 @@ export interface IListFavs {
   updated_at: Date;
 }
 
-export type createListFavs = Omit<IListFavs, '_id' | 'created_at' | 'updated_at'>;
+export type createListFavs = Omit<IListFavs, '_id' | 'user_id' | 'created_at' | 'updated_at'>;
