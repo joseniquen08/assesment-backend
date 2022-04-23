@@ -31,7 +31,7 @@ Runs the tests.
 
 ## **Endpoints**
 
-|Route|Http Verb|Route Middleware|Description|
+|Route|HTTP Verb|Route Middleware|Description|
 |---|---|---|---|
 |/auth/local/register|POST|`authMiddleware()`|Register user by email/username/password|
 |/auth/local/login|POST|`authMiddleware()`|Login user by email/password|
@@ -95,3 +95,23 @@ Auth routes have a **token** as a response.
   "link": "www.link3.com"
 }
 ```
+
+## **Some dependencies**
+
+Dependencies:
+
+- [crypto-js](https://www.npmjs.com/package/crypto-js)
+- [express](https://www.npmjs.com/package/express)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [mongoose](https://www.npmjs.com/package/mongoose)
+- [yup](https://www.npmjs.com/package/yup)
+
+Development dependencies:
+
+- [jest](https://www.npmjs.com/package/jest)
+- [mongodb-memory-server-core](https://www.npmjs.com/package/mongodb-memory-server-core)
+- [supertest](https://www.npmjs.com/package/supertest)
+- [ts-jest](https://www.npmjs.com/package/ts-jest)
+- [ts-node-dev](https://www.npmjs.com/package/ts-node-dev)
+- [typescript](https://www.npmjs.com/package/typescript)
+- @types
